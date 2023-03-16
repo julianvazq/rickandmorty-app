@@ -14,7 +14,10 @@ const Home = () => {
     });
     const [filter, setFilter] = useState('');
 
-    const filteredCharacters = getFilteredPodcasts(characters?.results, filter);
+    const filteredCharacters = getFilteredCharacters(
+        characters?.results,
+        filter
+    );
 
     if (status === STATUS.Error) {
         return <p>Failed to load characters.</p>;
@@ -30,7 +33,7 @@ const Home = () => {
                 <CharacterCount count={filteredCharacters.length} />
                 <CharacterFilter
                     filterValue={filter}
-                    onChangeHandler={setFilter}
+                    onFilterChange={setFilter}
                 />
             </S.FilterContainer>
             <CharacterList characters={filteredCharacters || []} />
@@ -38,9 +41,9 @@ const Home = () => {
     );
 };
 
-const getFilteredPodcasts = (podcasts, filter) => {
+const getFilteredCharacters = (characters, filter) => {
     return (
-        podcasts?.filter((p) => {
+        characters?.filter((p) => {
             const nameLowerCase = p.name?.toLowerCase();
             const filterLowerCase = filter?.toLowerCase();
             const containsName = nameLowerCase.includes(filterLowerCase);

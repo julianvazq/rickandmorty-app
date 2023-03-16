@@ -8,19 +8,25 @@ export const STATUS = {
     Success: 'Success',
 };
 
-const useFetch = ({ url, lsKey }) => {
+const useFetch = ({ request, url, lsKey }) => {
     const [lsData, setLsData] = useLocalStorage({ key: lsKey });
     const [data, setData] = useState(null);
     const [status, setStatus] = useState(STATUS.Idle);
 
     useEffect(() => {
-        const fetchData = async (url) => {
+        const fetchData = async () => {
             try {
                 setStatus(STATUS.Fetching);
-                const res = await fetch(url);
-                const json = await res.json();
-                setLsData(json);
-                setData(json);
+                let data = null;
+                if (request) {
+                    data = await request?.();
+                }
+                if (url) {
+                    const res = await fetch(url);
+                    data = await res.json();
+                }
+                setLsData(data);
+                setData(data);
                 setStatus(STATUS.Success);
             } catch (error) {
                 setStatus(STATUS.Error);
@@ -33,10 +39,16 @@ const useFetch = ({ url, lsKey }) => {
             return;
         }
 
-        if (url && data == null && status !== STATUS.Fetching) {
-            fetchData(url);
+        if (request && url) {
+            throw Error(
+                'Provide either a request that returns a Promise, or a URL.'
+            );
         }
-    }, [url, lsKey, lsData, setLsData, data, status]);
+
+        if ((request || url) && data == null && status !== STATUS.Fetching) {
+            fetchData();
+        }
+    }, [request, url, lsKey, lsData, setLsData, data, status]);
 
     return { data: data || lsData, status };
 };

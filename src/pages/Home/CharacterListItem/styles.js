@@ -23,7 +23,7 @@ export const CharacterName = styled.h2`
     font-size: 1rem;
 `;
 
-export const PodcastArtist = styled.h3`
+export const CharacterSpecies = styled.h3`
     color: gray;
     font-size: 1rem;
     font-weight: 400;

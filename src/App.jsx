@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import AppHeader from './components/AppHeader';
+import Character from './pages/Character';
 import Home from './pages/Home';
 
 function App() {
@@ -9,13 +10,10 @@ function App() {
             <AppHeader />
             <Routes>
                 <Route index element={<Home />} />
-                {/* <Route path='podcast/:podcastId' element={<Podcast />}>
-                    <Route index element={<PodcastEpisodes />} />
-                    <Route
-                        path='episode/:episodeId'
-                        element={<PodcastEpisode />}
-                    />
-                </Route> */}
+                <Route
+                    path='character/:characterId'
+                    element={<Character />}
+                ></Route>
                 <Route path='*' element={<Home />} />
             </Routes>
         </>

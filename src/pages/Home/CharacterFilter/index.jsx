@@ -1,13 +1,13 @@
 import React from 'react';
 import * as S from './styles';
 
-const CharacterFilter = ({ filterValue, onChangeHandler }) => {
+const CharacterFilter = ({ filterValue, onFilterChange }) => {
     return (
         <S.Input
             type='text'
-            placeholder='Filter podcasts...'
+            placeholder='Filter characters...'
             value={filterValue}
-            onChange={(e) => onChangeHandler(e.target.value)}
+            onChange={(e) => onFilterChange(e.target.value)}
         />
     );
 };

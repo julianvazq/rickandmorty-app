@@ -3,7 +3,7 @@ import * as S from './styles';
 
 const CharacterListitem = ({ character, characterId }) => {
     const name = character?.name;
-    const artist = character?.['im:artist']?.label;
+    const species = character?.species;
     const thumbnailSrc = character?.image;
 
     if (!name) return null;
@@ -15,10 +15,8 @@ const CharacterListitem = ({ character, characterId }) => {
                     src={thumbnailSrc}
                     alt={name}
                 ></S.CharacterThumbnail>
-                <S.CharacterName data-testid='podcast-name'>
-                    {name}
-                </S.CharacterName>
-                {/* <S.PodcastArtist>Author: {artist}</S.PodcastArtist> */}
+                <S.CharacterName>{name}</S.CharacterName>
+                <S.CharacterSpecies>{species}</S.CharacterSpecies>
             </S.CharacterLink>
         </S.ListItem>
     );
